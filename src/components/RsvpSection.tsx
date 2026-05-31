@@ -4,15 +4,15 @@ import { RsvpForm } from "./RsvpForm";
 
 export function RsvpSection() {
   return (
-    <section className="bg-white px-6 py-16">
-      <div className="mx-auto max-w-lg">
-        <Image
-          src={ASSETS.footerDecor}
-          alt=""
-          width={600}
-          height={300}
-          className="mx-auto mb-10 h-auto w-full max-w-xs object-contain"
-        />
+    <section className="bg-cream">
+      <Image
+        src={ASSETS.footerDecor}
+        alt=""
+        width={800}
+        height={536}
+        className="block h-auto w-full object-cover"
+      />
+      <div className="mx-auto max-w-[320px] px-5 py-14 lg:max-w-[360px] lg:px-10 lg:py-16">
         <RsvpForm />
       </div>
     </section>

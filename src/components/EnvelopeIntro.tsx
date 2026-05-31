@@ -1,8 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ASSETS } from "@/lib/assets";
+import { TEXT } from "@/lib/content";
+import { FallingPetals } from "./FallingPetals";
+
+const STORAGE_KEY = "beka-invite-opened";
 
 type EnvelopeIntroProps = {
   onOpen: () => void;
@@ -10,62 +14,153 @@ type EnvelopeIntroProps = {
 
 export function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
   const [phase, setPhase] = useState<"closed" | "opening" | "done">("closed");
+  const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   const openEnvelope = useCallback(() => {
     if (phase !== "closed") return;
     setPhase("opening");
+    sessionStorage.setItem(STORAGE_KEY, "1");
     window.setTimeout(() => {
       setPhase("done");
       onOpen();
-    }, 1400);
+    }, 1500);
   }, [onOpen, phase]);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, []);
 
   useEffect(() => {
     if (phase !== "closed") return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Enter" || e.key === " ") openEnvelope();
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openEnvelope();
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [openEnvelope, phase]);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
+    return () => {
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+    };
+  }, []);
+
+  function toggleMusic() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (playing) {
+      audio.pause();
+      return;
+    }
+    void audio.play();
+  }
+
   if (phase === "done") return null;
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-cream transition-opacity duration-700 ${
+      className={`fixed inset-0 z-[100] flex items-start justify-center bg-[#f2f2f2] transition-opacity duration-700 ${
         phase === "opening" ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
-      aria-hidden={phase === "opening"}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Шақыру конверті"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-olive/15 via-cream to-cream" />
+      <audio ref={audioRef} src={ASSETS.backgroundMusic} loop preload="none" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_10%,#ffffff_0%,#f2f2f2_70%)]" />
+
+      <FallingPetals />
+
+      <div className="pointer-events-none absolute -left-8 top-4 z-10 animate-header-flower-tl sm:top-4">
+        <Image
+          src={ASSETS.flower}
+          alt=""
+          width={220}
+          height={220}
+          className="h-auto w-[180px] rotate-[8deg] opacity-75 sm:w-[220px]"
+        />
+      </div>
+      <div className="pointer-events-none absolute -bottom-2 -right-5 z-10 animate-header-flower-br">
+        <Image
+          src={ASSETS.flower}
+          alt=""
+          width={150}
+          height={150}
+          className="h-auto w-[120px] -rotate-[12deg] opacity-70 sm:w-[145px]"
+        />
+      </div>
+
+      <button
+        type="button"
+        onClick={toggleMusic}
+        className="absolute right-4 top-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-pink/95 text-white shadow-md ring-4 ring-pink/20 sm:right-6 sm:top-6"
+        aria-label={playing ? "Музыканы өшіру" : "Музыканы қосу"}
+      >
+        {playing ? (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+            <rect x="6" y="5" width="4" height="14" rx="1" />
+            <rect x="14" y="5" width="4" height="14" rx="1" />
+          </svg>
+        ) : (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+            <path d="M8 5v14l11-7z" />
+          </svg>
+        )}
+      </button>
 
       <button
         type="button"
         onClick={openEnvelope}
-        className="relative mx-auto w-full max-w-sm px-6 focus:outline-none"
+        className="relative z-10 mt-[170px] w-full max-w-[370px] px-3 focus:outline-none sm:mt-[160px] sm:px-5"
         aria-label="Конвертті ашу"
       >
         <div
-          className={`relative transition-transform duration-[1200ms] ease-out ${
-            phase === "opening" ? "scale-105 -translate-y-4" : "scale-100"
+          className={`relative animate-header-appear transition-all duration-[1200ms] ease-out ${
+            phase === "opening" ? "scale-[1.03] -translate-y-6" : "scale-100"
           }`}
         >
           <Image
-            src={ASSETS.envelope}
+            src={ASSETS.envelopeClosed}
             alt=""
-            width={640}
-            height={480}
+            width={800}
+            height={600}
             priority
-            className="mx-auto h-auto w-full drop-shadow-lg"
+            className={`mx-auto h-auto w-full drop-shadow-xl transition-opacity duration-500 ${
+              phase === "opening" ? "opacity-0" : "opacity-100"
+            }`}
+          />
+
+          <Image
+            src={ASSETS.envelopeOpen}
+            alt=""
+            width={800}
+            height={600}
+            priority
+            className={`absolute inset-0 mx-auto h-auto w-full drop-shadow-xl transition-opacity duration-700 ${
+              phase === "opening" ? "opacity-100" : "opacity-0"
+            }`}
           />
 
           <Image
             src={ASSETS.waxSeal}
             alt=""
-            width={120}
-            height={120}
-            className={`absolute bottom-[18%] left-1/2 h-[22%] w-auto -translate-x-1/2 transition-all duration-700 ${
+            width={140}
+            height={140}
+            className={`absolute bottom-[16%] left-1/2 w-[24%] max-w-[110px] -translate-x-1/2 transition-all duration-700 sm:max-w-[130px] lg:max-w-[150px] ${
               phase === "opening"
                 ? "scale-150 opacity-0"
                 : "animate-pulse opacity-100"
@@ -74,23 +169,20 @@ export function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
         </div>
 
         <p
-          className={`mt-6 text-center text-sm uppercase tracking-[0.3em] text-olive transition-opacity duration-500 ${
-            phase === "opening" ? "opacity-0" : "opacity-80"
+          className={`mt-8 text-center text-xs uppercase tracking-[0.35em] text-olive sm:text-sm lg:text-base ${
+            phase === "opening" ? "opacity-0" : "opacity-90"
           }`}
         >
-          ашу үшін басыңыз
+          {TEXT.openEnvelope}
         </p>
       </button>
 
-      <Image
-        src={ASSETS.scrollArrows}
-        alt=""
-        width={80}
-        height={80}
-        className={`absolute bottom-8 left-1/2 h-10 w-10 -translate-x-1/2 animate-bounce-soft opacity-40 ${
-          phase === "opening" ? "opacity-0" : ""
-        }`}
-      />
+      <div className="absolute bottom-5 left-1/2 z-20 h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-olive/45" />
     </div>
   );
+}
+
+export function wasInviteOpened(): boolean {
+  if (typeof window === "undefined") return false;
+  return sessionStorage.getItem(STORAGE_KEY) === "1";
 }

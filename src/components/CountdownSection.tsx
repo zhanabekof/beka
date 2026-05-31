@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { EVENT } from "@/lib/constants";
+import { COUNTDOWN_LABELS } from "@/lib/content";
 
 type TimeLeft = {
   days: number;
@@ -38,18 +39,27 @@ export function CountdownSection() {
 
   const values = timeLeft ?? { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
+  const units = [
+    { value: values.days, label: COUNTDOWN_LABELS[0] },
+    { value: values.hours, label: COUNTDOWN_LABELS[1] },
+    { value: values.minutes, label: COUNTDOWN_LABELS[2] },
+    { value: values.seconds, label: COUNTDOWN_LABELS[3] },
+  ];
+
   return (
-    <section className="bg-white px-6 py-16">
-      <div className="mx-auto max-w-lg text-center">
-        <p className="text-3xl font-medium tracking-widest text-olive sm:text-4xl">
-          {pad(values.days)} : {pad(values.hours)} : {pad(values.minutes)} :{" "}
-          {pad(values.seconds)}
-        </p>
-        <div className="mt-4 flex justify-center gap-8 text-xs uppercase tracking-[0.2em] text-olive-light sm:text-sm">
-          <span>күн</span>
-          <span>сағат</span>
-          <span>минут</span>
-          <span>секунд</span>
+    <section className="bg-cream px-5 py-14 lg:px-10 lg:py-20">
+      <div className="mx-auto max-w-[320px] text-center">
+        <div className="grid grid-cols-4 gap-2">
+          {units.map((unit) => (
+            <div key={unit.label} className="flex flex-col items-center gap-1">
+              <span className="text-6xl font-medium tracking-wider text-olive lg:text-3xl">
+                {pad(unit.value)}
+              </span>
+              <span className="text-[12px] uppercase tracking-[0.15em] text-olive-light lg:text-[10px] m-5">
+                {unit.label}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

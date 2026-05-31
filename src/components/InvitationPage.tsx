@@ -1,55 +1,62 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ASSETS } from "@/lib/assets";
+import { ConvertHeaderSection } from "./ConvertHeaderSection";
 import { CountdownSection } from "./CountdownSection";
+import { DateSection } from "./DateSection";
 import { DressCodeSection } from "./DressCodeSection";
-import { EnvelopeIntro } from "./EnvelopeIntro";
+import { EnvelopeIntro, wasInviteOpened } from "./EnvelopeIntro";
 import { HeroSection } from "./HeroSection";
 import { LocationSection } from "./LocationSection";
 import { RsvpSection } from "./RsvpSection";
 import { ScrollHint } from "./ScrollHint";
 
 export function InvitationPage() {
+  const [ready, setReady] = useState(false);
   const [opened, setOpened] = useState(false);
 
+  useEffect(() => {
+    setOpened(wasInviteOpened());
+    setReady(true);
+  }, []);
+
+  if (!ready) {
+    return <div className="min-h-screen bg-cream" aria-busy="true" />;
+  }
+
   return (
-    <>
-      <EnvelopeIntro onOpen={() => setOpened(true)} />
+    <div className="min-h-screen bg-cream lg:bg-[#ebe8df]">
+      {!opened && <EnvelopeIntro onOpen={() => setOpened(true)} />}
 
-      <main
-        className={`mx-auto max-w-lg overflow-x-hidden bg-white shadow-xl transition-opacity duration-700 sm:max-w-md ${
-          opened ? "opacity-100" : "opacity-0"
-        }`}
-      >
-        <section className="relative bg-cream pt-6">
-          <ScrollHint />
-          <Image
-            src={ASSETS.floralBorder}
-            alt=""
-            width={400}
-            height={200}
-            className="mx-auto h-16 w-auto opacity-60"
-          />
-        </section>
+      <div className="mx-auto flex min-h-screen w-full max-w-[1200px] justify-center lg:px-8 lg:py-10">
+        <main
+          className={`relative w-full max-w-[430px] overflow-x-hidden bg-cream shadow-none transition-all duration-700 lg:max-w-[580px] lg:rounded-2xl lg:shadow-2xl ${opened ? "opacity-100" : "pointer-events-none opacity-0"
+            }`}
+        >
+          {opened && <ConvertHeaderSection />}
+          <section className="bg-cream px-5 pt-6 lg:px-10 lg:pt-10">
+            <ScrollHint />
+          </section>
 
-        <HeroSection />
-        <DressCodeSection />
-        <CountdownSection />
-        <LocationSection />
-        <RsvpSection />
+          <HeroSection />
+          <DateSection />
+          <LocationSection />
+          <CountdownSection />
+          <RsvpSection />
 
-        <footer className="bg-cream px-6 py-8 text-center">
-          <Image
-            src={ASSETS.heroAccent}
-            alt=""
-            width={200}
-            height={100}
-            className="mx-auto h-10 w-auto opacity-70"
-          />
-        </footer>
-      </main>
-    </>
+          <footer className="bg-cream py-8 lg:py-12">
+            <Image
+              src={ASSETS.footerPhoto}
+              alt=""
+              width={800}
+              height={400}
+              className="block h-auto w-full object-cover"
+            />
+          </footer>
+        </main>
+      </div>
+    </div>
   );
 }

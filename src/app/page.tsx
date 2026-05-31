@@ -1,9 +1,5 @@
+import { InvitationPage } from "@/components/InvitationPage";
+
 export default function Home() {
-  return (
-    <iframe
-      src="/tradition-mirror.html"
-      className="h-screen w-full border-0"
-      title="Бекзат Qyz Uzatu"
-    />
-  );
+  return <InvitationPage />;
 }
