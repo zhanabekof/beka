@@ -12,6 +12,7 @@ export function HeroSection() {
         width={80}
         height={160}
         className="pointer-events-none absolute left-0 top-8 h-auto w-14 opacity-50 lg:w-16"
+        unoptimized
       />
       <Image
         src={ASSETS.flower}
@@ -19,6 +20,7 @@ export function HeroSection() {
         width={60}
         height={120}
         className="pointer-events-none absolute right-2 top-40 h-auto w-12 opacity-40 lg:w-14"
+        unoptimized
       />
 
       <div className="relative z-10 w-full space-y-8 text-center">
