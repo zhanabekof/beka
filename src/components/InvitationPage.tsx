@@ -6,7 +6,6 @@ import { ASSETS } from "@/lib/assets";
 import { ConvertHeaderSection } from "./ConvertHeaderSection";
 import { CountdownSection } from "./CountdownSection";
 import { DateSection } from "./DateSection";
-import { DressCodeSection } from "./DressCodeSection";
 import { EnvelopeIntro, wasInviteOpened } from "./EnvelopeIntro";
 import { HeroSection } from "./HeroSection";
 import { LocationSection } from "./LocationSection";
