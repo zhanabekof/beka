@@ -1,9 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import { EVENT } from "@/lib/constants";
-import { TEXT } from "@/lib/content";
 import { ASSETS } from "@/lib/assets";
-
-const WEEKDAYS = ["ДС", "СС", "СР", "БС", "ЖМ", "СБ", "ЖС"] as const;
+import { useI18n } from "./I18nProvider";
 
 function getMonthGrid(year: number, month: number) {
   const firstWeekday = (new Date(year, month - 1, 1).getDay() + 6) % 7;
@@ -33,13 +33,16 @@ function HighlightedDay({ day }: { day: number }) {
           d="M20 9.5c6.8 0 10 4.8 10 9.3 0 3.4-1.4 6.4-3.8 8.6-1.8 1.6-4.1 2.8-6.2 2.8s-4.4-1.2-6.2-2.8C11.4 25.2 10 22.2 10 18.8c0-4.5 3.2-9.3 10-9.3z"
         />
       </svg>
-      <span className="relative text-[20px] font-large tracking-[0.08em] leading-none">{day}</span>
+      <span className="relative text-[20px] font-large leading-none tracking-[0.08em]">
+        {day}
+      </span>
     </span>
   );
 }
 
 export function EventCalendar() {
-  const { year, month, monthLabel, day: eventDay } = EVENT.date;
+  const { messages } = useI18n();
+  const { year, month, day: eventDay } = EVENT.date;
   const { firstWeekday, daysInMonth } = getMonthGrid(year, month);
 
   const leading = Array.from({ length: firstWeekday }, (_, i) => (
@@ -88,13 +91,13 @@ export function EventCalendar() {
 
       <div className="relative z-10 px-2">
         <div className="flex items-end justify-between px-1 text-lg font-large tracking-[0.12em]">
-          <span>{monthLabel}</span>
+          <span>{messages.event.monthLabel}</span>
           <span>{year}</span>
         </div>
 
         <div className="mx-1 mt-5 rounded-full border border-white/85 px-2 py-2">
           <div className="grid grid-cols-7 gap-1 text-center text-[15px] font-large tracking-[0.08em]">
-            {WEEKDAYS.map((label) => (
+            {messages.weekdays.map((label) => (
               <span key={label}>{label}</span>
             ))}
           </div>
@@ -106,7 +109,7 @@ export function EventCalendar() {
         </div>
 
         <p className="mt-6 text-center text-[25px] text-sm font-large tracking-[0.28em]">
-          {TEXT.timePrefix} {EVENT.time}
+          {messages.text.timePrefix} {EVENT.time}
         </p>
       </div>
     </div>

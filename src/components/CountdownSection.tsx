@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { EVENT } from "@/lib/constants";
-import { COUNTDOWN_LABELS } from "@/lib/content";
+import { useI18n } from "./I18nProvider";
 
 type TimeLeft = {
   days: number;
@@ -29,6 +29,7 @@ function pad(n: number) {
 }
 
 export function CountdownSection() {
+  const { messages } = useI18n();
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
@@ -40,10 +41,10 @@ export function CountdownSection() {
   const values = timeLeft ?? { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
   const units = [
-    { value: values.days, label: COUNTDOWN_LABELS[0] },
-    { value: values.hours, label: COUNTDOWN_LABELS[1] },
-    { value: values.minutes, label: COUNTDOWN_LABELS[2] },
-    { value: values.seconds, label: COUNTDOWN_LABELS[3] },
+    { value: values.days, label: messages.countdown[0] },
+    { value: values.hours, label: messages.countdown[1] },
+    { value: values.minutes, label: messages.countdown[2] },
+    { value: values.seconds, label: messages.countdown[3] },
   ];
 
   return (
@@ -55,7 +56,7 @@ export function CountdownSection() {
               <span className="text-6xl font-medium tracking-wider text-olive lg:text-3xl">
                 {pad(unit.value)}
               </span>
-              <span className="text-[12px] uppercase tracking-[0.15em] text-olive-light lg:text-[10px] m-5">
+              <span className="m-5 text-[12px] uppercase tracking-[0.15em] text-olive-light lg:text-[10px]">
                 {unit.label}
               </span>
             </div>

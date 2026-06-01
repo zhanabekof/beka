@@ -3,10 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { EVENT } from "@/lib/constants";
-import { TEXT } from "@/lib/content";
 import { ASSETS } from "@/lib/assets";
+import { useI18n } from "./I18nProvider";
 
 export function DressCodeSection() {
+  const { messages } = useI18n();
   const [visibleCount, setVisibleCount] = useState(0);
   const [paletteCount, setPaletteCount] = useState(0);
 
@@ -35,7 +36,7 @@ export function DressCodeSection() {
 
       <div className="relative mx-auto max-w-[320px] space-y-10 text-center lg:max-w-2xl lg:space-y-12">
         <p className="animate-fade-in-up whitespace-pre-line text-base leading-8 text-olive lg:text-xl lg:leading-9">
-          {TEXT.dressIntro}
+          {messages.text.dressIntro}
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-6">
@@ -57,7 +58,7 @@ export function DressCodeSection() {
         </div>
 
         <p className="animate-fade-in-up text-base leading-8 text-olive lg:text-xl lg:leading-9 [animation-delay:200ms]">
-          {TEXT.dressAvoid}
+          {messages.text.dressAvoid}
         </p>
 
         <p className="animate-fade-in-up text-2xl font-semibold tracking-[0.2em] text-olive-light lg:text-4xl [animation-delay:400ms]">

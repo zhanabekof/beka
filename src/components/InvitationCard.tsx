@@ -1,4 +1,6 @@
-import { INVITATION } from "@/lib/content";
+"use client";
+
+import { useI18n } from "./I18nProvider";
 
 type InvitationCardProps = {
   className?: string;
@@ -25,6 +27,9 @@ function CornerFlourish({ className = "" }: { className?: string }) {
 }
 
 export function InvitationCard({ className = "" }: InvitationCardProps) {
+  const { messages } = useI18n();
+  const { invitation } = messages;
+
   return (
     <div
       className={`relative mx-auto w-full max-w-[340px] bg-[#f9f7f0] px-3 py-2 sm:max-w-[360px] ${className}`}
@@ -37,17 +42,17 @@ export function InvitationCard({ className = "" }: InvitationCardProps) {
 
         <div className="space-y-3 px-2 text-center sm:space-y-3.5">
           <p className="text-[13px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-[#2d2d2d] sm:text-sm">
-            {INVITATION.respectedGuests}
+            {invitation.respectedGuests}
           </p>
           <p className="text-[13px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-[#2d2d2d] sm:text-sm">
-            {INVITATION.dearGuests}
+            {invitation.dearGuests}
           </p>
 
           <p className="py-1 font-serif text-[42px] font-medium leading-none tracking-wide text-olive sm:text-5xl">
-            {INVITATION.brideName}
+            {invitation.brideName}
           </p>
 
-          {INVITATION.lines.map((line) => (
+          {invitation.lines.map((line) => (
             <p
               key={line}
               className="text-[13px] font-semibold uppercase leading-relaxed tracking-[0.14em] text-[#2d2d2d] sm:text-sm"

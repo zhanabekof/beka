@@ -1,12 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import { EVENT } from "@/lib/constants";
-import { TEXT } from "@/lib/content";
 import { ASSETS } from "@/lib/assets";
+import { useI18n } from "./I18nProvider";
 
 export function LocationSection() {
+  const { messages } = useI18n();
+
   return (
     <section className="relative overflow-hidden bg-cream px-5 py-14 lg:px-10 lg:py-20">
-      <p className="text-3xl lg:text-lg text-center m-5">Мекенжай:</p>
+      <p className="m-5 text-center text-3xl lg:text-lg">
+        {messages.text.locationLabel}
+      </p>
       <Image
         src={ASSETS.floralBorder}
         alt=""
@@ -20,8 +26,9 @@ export function LocationSection() {
           <p className="text-4xl font-semibold tracking-wide lg:text-2xl">
             {EVENT.venue.name}
           </p>
-          <p className="text-3xl leading-8 lg:text-lg">
-            {EVENT.venue.address}
+          <p className="text-3xl leading-8 lg:text-lg">{EVENT.venue.address}</p>
+          <p className="text-xl uppercase tracking-wide text-olive/80 lg:text-base">
+            {messages.event.city}
           </p>
         </div>
         <a
@@ -30,7 +37,7 @@ export function LocationSection() {
           rel="noopener noreferrer"
           className="inline-block border border-olive/40 px-10 py-3 text-xs uppercase tracking-[0.25em] text-olive transition hover:bg-olive hover:text-white lg:text-sm"
         >
-          {TEXT.mapButton}
+          {messages.text.mapButton}
         </a>
       </div>
     </section>

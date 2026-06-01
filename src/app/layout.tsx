@@ -10,10 +10,10 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: "Бекзат Qyz Uzatu",
-  description: "Қыз ұзату тойына арналған шақыру",
+  description: "Приглашение на торжество узату | Қыз ұзату шақыруы",
   openGraph: {
     title: "Бекзат Qyz Uzatu",
-    description: "Қыз ұзату тойына арналған шақыру",
+    description: "Приглашение на торжество узату | Қыз ұзату шақыруы",
     images: ["/images/Dina_Uzatu_1.png"],
   },
 };

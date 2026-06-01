@@ -12,7 +12,7 @@ export function ConvertHeaderSection() {
 
       <BackgroundMusic variant="header" />
 
-      <div className="relative z-10 flex min-h-[min(100vh,640px)] items-center justify-center px-10 pb-20 pt-16 sm:px-8">
+      <div className="relative z-10 flex min-h-[min(100vh,640px)] items-center justify-center px-10 pb-20 pt-24 sm:px-8 sm:pt-28">
         <div className="relative w-full max-w-[320px] sm:max-w-[340px]">
           <div className="pointer-events-none absolute -left-30 -top-14 z-10 animate-header-flower-tl sm:-left-12 sm:-top-16">
             <Image

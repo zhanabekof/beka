@@ -3,8 +3,9 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ASSETS } from "@/lib/assets";
-import { TEXT } from "@/lib/content";
 import { FallingPetals } from "./FallingPetals";
+import { useI18n } from "./I18nProvider";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const STORAGE_KEY = "beka-invite-opened";
 
@@ -13,6 +14,7 @@ type EnvelopeIntroProps = {
 };
 
 export function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
+  const { messages } = useI18n();
   const [phase, setPhase] = useState<"closed" | "opening" | "done">("closed");
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -78,10 +80,14 @@ export function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
       }`}
       role="dialog"
       aria-modal="true"
-      aria-label="Шақыру конверті"
+      aria-label={messages.aria.envelope}
     >
       <audio ref={audioRef} src={ASSETS.backgroundMusic} loop preload="none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_10%,#ffffff_0%,#f2f2f2_70%)]" />
+
+      <div className="absolute left-1/2 top-5 z-40 -translate-x-1/2 sm:top-6">
+        <LanguageSwitcher />
+      </div>
 
       <FallingPetals />
 
@@ -108,7 +114,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
         type="button"
         onClick={toggleMusic}
         className="absolute right-4 top-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-pink/95 text-white shadow-md ring-4 ring-pink/20 sm:right-6 sm:top-6"
-        aria-label={playing ? "Музыканы өшіру" : "Музыканы қосу"}
+        aria-label={playing ? messages.aria.musicPause : messages.aria.musicPlay}
       >
         {playing ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -126,7 +132,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
         type="button"
         onClick={openEnvelope}
         className="relative z-10 mt-[170px] w-full max-w-[370px] px-3 focus:outline-none sm:mt-[160px] sm:px-5"
-        aria-label="Конвертті ашу"
+        aria-label={messages.aria.openEnvelope}
       >
         <div
           className={`relative animate-header-appear transition-all duration-[1200ms] ease-out ${
@@ -150,7 +156,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
             phase === "opening" ? "opacity-0" : "opacity-90"
           }`}
         >
-          {TEXT.openEnvelope}
+          {messages.text.openEnvelope}
         </p>
       </button>
 

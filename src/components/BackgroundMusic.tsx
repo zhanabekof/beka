@@ -2,13 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ASSETS } from "@/lib/assets";
-import { TEXT } from "@/lib/content";
+import { useI18n } from "./I18nProvider";
 
 type BackgroundMusicProps = {
   variant?: "floating" | "header";
 };
 
 export function BackgroundMusic({ variant = "floating" }: BackgroundMusicProps) {
+  const { messages } = useI18n();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
 
@@ -35,6 +36,10 @@ export function BackgroundMusic({ variant = "floating" }: BackgroundMusicProps) 
       void audio.play();
     }
   }
+
+  const musicLabel = playing
+    ? messages.aria.musicPause
+    : messages.aria.musicPlay;
 
   const icon = playing ? (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
@@ -66,7 +71,7 @@ export function BackgroundMusic({ variant = "floating" }: BackgroundMusicProps) 
               </defs>
               <text fill="currentColor" fontSize="8.5" letterSpacing="1.2">
                 <textPath href="#music-label-circle" startOffset="0%">
-                  {TEXT.musicToggle}
+                  {messages.text.musicToggle}
                 </textPath>
               </text>
             </svg>
@@ -74,7 +79,7 @@ export function BackgroundMusic({ variant = "floating" }: BackgroundMusicProps) 
               type="button"
               onClick={toggle}
               className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-pink/95 text-white shadow-md ring-4 ring-pink/20"
-              aria-label={playing ? "Музыканы өшіру" : "Музыканы қосу"}
+              aria-label={musicLabel}
             >
               {icon}
             </button>
@@ -85,7 +90,7 @@ export function BackgroundMusic({ variant = "floating" }: BackgroundMusicProps) 
           type="button"
           onClick={toggle}
           className="fixed bottom-5 right-5 z-50 flex h-11 w-11 items-center justify-center rounded-full border border-olive/30 bg-white/90 text-olive shadow-md backdrop-blur-sm transition hover:bg-olive hover:text-white lg:bottom-8 lg:right-8 lg:h-12 lg:w-12"
-          aria-label={playing ? "Музыканы өшіру" : "Музыканы қосу"}
+          aria-label={musicLabel}
         >
           {icon}
         </button>

@@ -1,19 +1,25 @@
 import { NextResponse } from "next/server";
-import { ATTENDANCE_OPTIONS } from "@/lib/constants";
+import {
+  ATTENDANCE_KEYS,
+  getAttendanceLabel,
+  isLocale,
+  type AttendanceKey,
+} from "@/lib/i18n";
 import { appendRsvpToSheet } from "@/lib/google-sheets";
 
 type RsvpPayload = {
   name: string;
-  attendance: string;
+  attendanceKey: string;
+  locale?: string;
 };
 
 function isValidPayload(body: unknown): body is RsvpPayload {
   if (!body || typeof body !== "object") return false;
-  const { name, attendance } = body as RsvpPayload;
+  const { name, attendanceKey } = body as RsvpPayload;
   return (
     typeof name === "string" &&
     name.trim().length > 0 &&
-    ATTENDANCE_OPTIONS.includes(attendance as (typeof ATTENDANCE_OPTIONS)[number])
+    ATTENDANCE_KEYS.includes(attendanceKey as AttendanceKey)
   );
 }
 
@@ -29,9 +35,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
   }
 
+  const locale = body.locale && isLocale(body.locale) ? body.locale : "kk";
+  const attendance = getAttendanceLabel(
+    body.attendanceKey as AttendanceKey,
+    locale,
+  );
+
   const entry = {
     name: body.name.trim(),
-    attendance: body.attendance,
+    attendance,
     submittedAt: new Date().toISOString(),
   };
 

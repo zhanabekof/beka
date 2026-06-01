@@ -8,11 +8,13 @@ import { CountdownSection } from "./CountdownSection";
 import { DateSection } from "./DateSection";
 import { EnvelopeIntro, wasInviteOpened } from "./EnvelopeIntro";
 import { HeroSection } from "./HeroSection";
+import { I18nProvider } from "./I18nProvider";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import { LocationSection } from "./LocationSection";
 import { RsvpSection } from "./RsvpSection";
 import { ScrollHint } from "./ScrollHint";
 
-export function InvitationPage() {
+function InvitationPageContent() {
   const [ready, setReady] = useState(false);
   const [opened, setOpened] = useState(false);
 
@@ -27,6 +29,9 @@ export function InvitationPage() {
 
   return (
     <div className="min-h-screen bg-cream lg:bg-[#ebe8df]">
+        <div className="mb-6 flex justify-center">
+              <LanguageSwitcher />
+            </div>
       {!opened && <EnvelopeIntro onOpen={() => setOpened(true)} />}
 
       <div className="mx-auto flex min-h-screen w-full max-w-[1200px] justify-center lg:px-8 lg:py-10">
@@ -36,6 +41,7 @@ export function InvitationPage() {
         >
           {opened && <ConvertHeaderSection />}
           <section className="bg-cream px-5 pt-6 lg:px-10 lg:pt-10">
+          
             <ScrollHint />
           </section>
 
@@ -57,5 +63,13 @@ export function InvitationPage() {
         </main>
       </div>
     </div>
+  );
+}
+
+export function InvitationPage() {
+  return (
+    <I18nProvider>
+      <InvitationPageContent />
+    </I18nProvider>
   );
 }
