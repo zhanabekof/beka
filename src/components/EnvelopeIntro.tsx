@@ -143,30 +143,7 @@ export function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
               phase === "opening" ? "opacity-0" : "opacity-100"
             }`}
           />
-
-          <Image
-            src={ASSETS.envelopeOpen}
-            alt=""
-            width={800}
-            height={600}
-            priority
-            className={`absolute inset-0 mx-auto h-auto w-full drop-shadow-xl transition-opacity duration-700 ${
-              phase === "opening" ? "opacity-100" : "opacity-0"
-            }`}
-          />
-
-          <Image
-            src={ASSETS.waxSeal}
-            alt=""
-            width={140}
-            height={140}
-            className={`absolute bottom-[16%] left-1/2 w-[24%] max-w-[110px] -translate-x-1/2 transition-all duration-700 sm:max-w-[130px] lg:max-w-[150px] ${
-              phase === "opening"
-                ? "scale-150 opacity-0"
-                : "animate-pulse opacity-100"
-            }`}
-          />
-        </div>
+          </div>
 
         <p
           className={`mt-8 text-center text-xs uppercase tracking-[0.35em] text-olive sm:text-sm lg:text-base ${
