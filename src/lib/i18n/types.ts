@@ -13,7 +13,10 @@ export type Messages = {
     respectedGuests: string;
     dearGuests: string;
     brideName: string;
+    highlightedName?: string;
     lines: readonly string[];
+    closingRespect: string;
+    closingNames: string;
   };
   text: {
     scrollHint: string;

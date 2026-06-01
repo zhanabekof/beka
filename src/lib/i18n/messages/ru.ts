@@ -2,20 +2,21 @@ import type { Messages } from "../types";
 
 export const ru: Messages = {
   meta: {
-    title: "Бекзат Qyz Uzatu",
+    title: "Бекзада Qyz Uzatu",
     description: "Приглашение на торжество узату",
   },
   invitation: {
-    respectedGuests: "Уважаемые гости!",
-    dearGuests: "ДОРОГИЕ ГОСТИ,",
-    brideName: "Бекзада,",
+    respectedGuests: "УВАЖАЕМЫЕ ГОСТИ!",
+    dearGuests: "",
+    brideName: "",
     lines: [
-      "ПРИГЛАШАЕМ ВАС НА ТОРЖЕСТВО",
-      "ПО СЛУЧАЮ ВЫПУСКА",
-      "НАШЕЙ ДОЧЕРИ",
-      "ИЗ РОДИТЕЛЬСКОГО ДОМА",
-      "СТАТЬ ПОЧЁТНЫМИ ГОСТЯМИ!",
+      "С РАДОСТЬЮ ПРИГЛАШАЕМ ВАС",
+      "РАЗДЕЛИТЬ С НАМИ ОСОБЕННЫЙ ДЕНЬ —",
+      "ПРОВОДЫ НАШЕЙ ДОЧЕРИ",
     ],
+    highlightedName: "Бекзады",
+    closingRespect: "С уважением,",
+    closingNames: "Бейсенбай-Айгуль",
   },
   text: {
     scrollHint: "листайте вверх",

@@ -8,7 +8,7 @@ export const ASSETS = {
   heroPhoto: "/images/tild3065_6663_4232_b535_393336663437_Dina_Uzatu_4.png",
   heroMain: "/images/2.png",
   portraitFrame: "/images/Dina_Uzatu.svg",
-  portraitPhoto: "/images/beka.png",
+  portraitPhoto: "/images/bekzada.png",
   monthLabel: "/images/tild3337_3430_4262_b537_643136643934_2.svg",
   tableDecor: "/images/tild6631_6435_4238_b766_633539336166_2.png",
   flower: "/images/Black_and_Gold_Anima.png",

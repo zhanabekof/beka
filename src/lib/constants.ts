@@ -1,5 +1,5 @@
 export const EVENT = {
-  title: "Бекзат Qyz Uzatu",
+  title: "Бекзада Qyz Uzatu",
   countdownDate: "2026-08-05T18:00:00+05:00",
   date: {
     year: 2026,

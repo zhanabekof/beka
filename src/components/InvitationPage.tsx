@@ -11,6 +11,7 @@ import { HeroSection } from "./HeroSection";
 import { I18nProvider } from "./I18nProvider";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { LocationSection } from "./LocationSection";
+import { InvitationClosing } from "./InvitationClosing";
 import { RsvpSection } from "./RsvpSection";
 import { ScrollHint } from "./ScrollHint";
 
@@ -29,9 +30,6 @@ function InvitationPageContent() {
 
   return (
     <div className="min-h-screen bg-cream lg:bg-[#ebe8df]">
-        <div className="mb-6 flex justify-center">
-              <LanguageSwitcher />
-            </div>
       {!opened && <EnvelopeIntro onOpen={() => setOpened(true)} />}
 
       <div className="mx-auto flex min-h-screen w-full max-w-[1200px] justify-center lg:px-8 lg:py-10">
@@ -39,9 +37,12 @@ function InvitationPageContent() {
           className={`relative w-full max-w-[430px] overflow-x-hidden bg-cream shadow-none transition-all duration-700 lg:max-w-[580px] lg:rounded-2xl lg:shadow-2xl ${opened ? "opacity-100" : "pointer-events-none opacity-0"
             }`}
         >
+          <div className="sticky top-0 z-50 flex justify-center bg-cream/95 px-4 py-3 backdrop-blur-sm">
+            <LanguageSwitcher />
+          </div>
+
           {opened && <ConvertHeaderSection />}
           <section className="bg-cream px-5 pt-6 lg:px-10 lg:pt-10">
-          
             <ScrollHint />
           </section>
 
@@ -51,7 +52,9 @@ function InvitationPageContent() {
           <CountdownSection />
           <RsvpSection />
 
-          <footer className="bg-cream py-8 lg:py-12">
+          <InvitationClosing />
+
+          <footer className="bg-cream pt-4 pb-8 lg:pb-12">
             <Image
               src={ASSETS.footerPhoto}
               alt=""

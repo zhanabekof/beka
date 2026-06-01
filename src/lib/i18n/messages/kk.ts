@@ -2,7 +2,7 @@ import type { Messages } from "../types";
 
 export const kk: Messages = {
   meta: {
-    title: "Бекзат Qyz Uzatu",
+    title: "Бекзада Qyz Uzatu",
     description: "Қыз ұзату тойына арналған шақыру",
   },
   invitation: {
@@ -16,6 +16,8 @@ export const kk: Messages = {
       "ҚАДІРЛІ ҚОНАҒЫ",
       "БОЛУҒА ШАҚЫРАМЫЗ!",
     ],
+    closingRespect: "Құрметпен,",
+    closingNames: "Бейсенбай-Айгуль",
   },
   text: {
     scrollHint: "жоғары жылжытыңыз",

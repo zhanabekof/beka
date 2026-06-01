@@ -44,13 +44,18 @@ export function InvitationCard({ className = "" }: InvitationCardProps) {
           <p className="text-[13px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-[#2d2d2d] sm:text-sm">
             {invitation.respectedGuests}
           </p>
-          <p className="text-[13px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-[#2d2d2d] sm:text-sm">
-            {invitation.dearGuests}
-          </p>
 
-          <p className="py-1 font-serif text-[42px] font-medium leading-none tracking-wide text-olive sm:text-5xl">
-            {invitation.brideName}
-          </p>
+          {invitation.dearGuests ? (
+            <p className="text-[13px] font-semibold uppercase leading-relaxed tracking-[0.18em] text-[#2d2d2d] sm:text-sm">
+              {invitation.dearGuests}
+            </p>
+          ) : null}
+
+          {invitation.brideName ? (
+            <p className="py-1 font-serif text-[42px] font-medium leading-none tracking-wide text-olive sm:text-5xl">
+              {invitation.brideName}
+            </p>
+          ) : null}
 
           {invitation.lines.map((line) => (
             <p
@@ -60,6 +65,12 @@ export function InvitationCard({ className = "" }: InvitationCardProps) {
               {line}
             </p>
           ))}
+
+          {invitation.highlightedName ? (
+            <p className="py-1 font-serif text-[42px] font-medium uppercase leading-none tracking-wide text-olive sm:text-5xl">
+              {invitation.highlightedName}
+            </p>
+          ) : null}
         </div>
       </div>
     </div>
