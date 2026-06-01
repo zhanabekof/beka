@@ -67,7 +67,7 @@ export function InvitationCard({ className = "" }: InvitationCardProps) {
           ))}
 
           {invitation.highlightedName ? (
-            <p className="py-1 font-serif text-[42px] font-medium uppercase leading-none tracking-wide text-olive sm:text-5xl">
+            <p className="py-1 font-serif text-[32px] font-medium leading-none tracking-wide text-olive sm:text-5xl">
               {invitation.highlightedName}
             </p>
           ) : null}
