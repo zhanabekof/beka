@@ -33,7 +33,9 @@ export const TEXT = {
   dressAvoid: "өз образдарыңызда қызыл және қара түсті қолданбауды сұраймыз.",
   dressCode: "PASTEL FORMAL",
   mapButton: "картаға өту",
+  rsvpTitle: "Жауап беріңіз",
   rsvpButton: "ЖАУАПТЫ ЖІБЕРУ",
+  rsvpSubmitting: "Жіберілуде...",
   rsvpSuccess: "Жауабыңызға рақмет!",
 } as const;
 
@@ -43,5 +45,4 @@ export const FORM = {
   nameLabel: "Аты-Жөні",
   namePlaceholder: "Аты-Жөніңіз",
   attendanceLabel: "Қатысуыңыз:",
-  drinkLabel: "Таңдаған сусыныңызды белгілеңіз:",
 } as const;

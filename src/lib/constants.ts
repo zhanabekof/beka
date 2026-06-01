@@ -22,13 +22,3 @@ export const ATTENDANCE_OPTIONS = [
   "Жұбыммен келемін",
   "Келе алмаймын",
 ] as const;
-
-export const DRINK_OPTIONS = [
-  "Ақ шарап",
-  "Қызыл шарап",
-  "Просекко",
-  "Виски",
-  "Водка",
-  "Коньяк",
-  "Алкогольсіз сусындар",
-] as const;
